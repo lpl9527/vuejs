@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <!--数组中有哪些方法是响应式的，所谓响应式，是指被监听的数据，当数据发生改变时，页面上的数据会无刷新随之改变。-->
+
+    <ul>
+        <li v-for="letter in letters">{{letter}}</li>
+    </ul>
+
+    <button @click="btnClick()">数组方法</button>
+
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            letters: ['a', 'b', 'c', 'd']
+        },
+        methods: {
+            btnClick: function () {
+                //1.push方法，向数组的末尾追加n个元素。响应式的
+                //this.letters.push('e', 'f');
+
+                //2.unshift方法，向数组的首部增加n个元素。响应式的
+                //this.letters.unshift('g', 'h');
+
+                //3.pop方法，弹出数组中最后一个元素。响应式的
+                //this.letters.pop();
+
+                //4.shift方法，删除数组中的第一个元素。响应式的
+                //this.letters.shift();
+
+                //5.splice方法，可以用来删除元素、插入元素、追加元素。响应式的
+                //第一个参数，表示要进行操作的元素起始位置，从1开始，不包括这一个元素
+                //第二个参数，如果不传，则会删除起始位置到最后的所有元素，传的是几就删除几个元素，如果还有第n个元素，则为追加的元素。
+                //后面的n个参数，要追加的元素
+                //this.letters.splice(1, 0, 'x', 'y', 'z');
+
+                //6.sort方法，用于排序。响应式的
+                //this.letters.sort();
+
+                //7.reverse方法，将数组内容反转。响应式的
+                //this.letters.reverse();
+
+                //通过索引来修改数组时不是响应式的
+                //this.letters[0] = 'z';
+                //要想实现根据数组下标修改数组值，并且是响应式的，可以使用Vue提供的方法
+                Vue.set(this.letters, 0, 'z');
+                console.log(this.letters);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

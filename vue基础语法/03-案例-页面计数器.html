@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <h2>当前计数：{{counter}}</h2>
+
+    <!--为元素4绑定点击事件-->
+    <!--<button v-on:click="counter++">+</button>
+    <button @click="counter--">-</button>-->
+
+    <button v-on:click="increment">+</button>
+    <button @click="subtraction">-</button>
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#app',     //挂载元素
+        data: {         //为元素绑定数据，一般从后台请求获取
+            counter: 0
+        },
+        methods: {      //为元素绑定可执行的方法
+
+            increment: function () {    //增加计数函数
+                this.counter++;     //由于变量作用域问题不能直接拿到counter加操作，只能通过当前所在对象app拿到counter
+                console.log('计数加一！');
+            },
+            subtraction: function () {  //减少计数函数
+                this.counter--;
+                console.log('计数减一！');
+            }
+
+        }
+
+    });
+</script>
+
+</body>
+</html>

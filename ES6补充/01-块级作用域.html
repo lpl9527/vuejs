@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button>按钮1</button>
+<button>按钮2</button>
+<button>按钮3</button>
+<button>按钮4</button>
+<button>按钮5</button>
+
+<script>
+    //1.变量的作用域
+    {
+        var name = 'lpl';
+        console.log("块内输出：" + name)
+    }
+    console.log("块外输出：" + name)
+
+    //var声明的变量没有块级作用域，会引起变量污染的问题。但是是有函数级作用域的，因此可以使用函数必报解决var变量污染问题。
+    const btns = document.getElementsByTagName('button');   //获取所有的按钮
+
+    //说明：ES5，如果变量i是var声明的，由于变量在for中没有块级作用域，所有的舰艇函数用的都是同一个变量i,那么变量i在绑定了5个点击事件之后就
+    //      已经被递增修改到了5，所以当点击按钮时输出的是 第5个按钮被点击了。
+    //      ES6，如果i是用let声明的，每个监听函数使用的是不同的变量i，那么在最终点击时触发的i值就是按钮被绑定事件时赋予的i值。
+    //  (说白了：var定义的相当于一个全局变量，被每个函数进行修改了，但是函数又不是立即执行的，点击才会执行，所以最终拿到的变量
+    //  值是最终的值。而let定义的变量相当于局部变量，每个函数使用的是一个独立的局部变量的值，外部变量的副本。)
+    for (let i=0; i<btns.length; i++){
+        btns[i].addEventListener('click', function () {
+            alert('第' + (i) + '个按钮被点击了！')
+        })
+    }
+
+    //var这种方式解决方案：使用闭包，利用函数作用域
+    for (var i=0; i<btns.length; i++){
+
+        (function (i) {
+            btns[i].addEventListener('click', function () {
+                alert('第' + (i) + '个按钮被点击了！')
+            })
+        })(i)
+
+    }
+
+
+</script>
+
+</body>
+</html>

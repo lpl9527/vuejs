@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <h2>当前计数：{{counter}}</h2>
+
+    <button v-on:click="increment">+</button>
+    <button @click="subtraction">-</button>     <!--语法糖写法-->
+
+    <h1>-------------参数调用-----------------</h1>
+
+    <!--调用事件没有参数-->
+    <button @click="btnClick()">btnClick()</button>
+
+    <!--调用事件方法含有参数-->
+    <button @click="btnClick2">btnClick2</button>  <!--当事件方法含有参数，但是调用时没有写()时，则会将浏览器捕获的事件对象作为参数传递到方法中-->
+    <button @click="btnClick2()">btnClick2()</button>   <!--当写了()却没有指定参数时，传递的参数是undefined-->
+    <button @click="btnClick2('abc')">btnClick2('abc')</button>
+
+    <!--有参数，并且需要传递event对象-->
+    <button @click="btnClick3('abc', $event)">btnClick3('abc', $event)</button>
+
+    <h1>---------------v-on修饰符-----------------</h1>
+
+    <!--1. .stop停止冒泡-->
+    <div @click="divClick()">       <!--当点击了div内按钮时会触发点击按钮事件，同时也会向上冒泡触发div的点击事件-->
+        这是div内的其它内容--
+        <button @click.stop="btnclick()">div内按钮</button>     <!--有时我们为了阻止冒泡事件，可以加上.stop修饰阻止冒泡-->
+    </div>
+    <br>
+    <!--2. .prevent阻止默认行为-->
+    <form action="lpl">     <!--当点击提交时表单会默认收集其中数据并提交到action指定地址-->
+        <input type="submit" value="表单提交按钮，阻止默认提交行为" @click.prevent="preventClick()">   <!--有时我们为了阻止默认行为，可以加上.prevent修饰阻止浏览器默认行为-->
+    </form>
+    <br>
+    <!--3. .keyCode | keyAlias监听某个按键的抬起事件-->
+    <input type="text" alt="监听某个按键的抬起事件" @keyup.enter="keyUp()">    <!--默认监听所有按键的抬起事件，当指定了键码或键别名时就会监听指定按键，例如监听键a的抬起，则修饰符为.65或.a-->
+    <br>
+    <br>
+    <!--4. .once某个事件只执行一次-->
+    <button @click.once="btnOnce()">这个按钮只能被点击一次</button>
+
+</div>
+
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            counter: 0
+        },
+        methods: {      //为元素绑定可执行的方法
+
+            //计数器相关方法
+            increment: function () {    //增加计数函数
+                this.counter++;     //由于变量作用域问题不能直接拿到counter加操作，只能通过当前所在对象app拿到counter
+                console.log('计数加一！');
+            },
+            subtraction: function () {  //减少计数函数
+                this.counter--;
+                console.log('计数减一！');
+            },
+
+            //参数传递相关方法
+            btnClick: function () {
+                console.log('点击了按钮！没有参数！');
+            },
+            btnClick2: function (param) {
+                console.log('点击了按钮！传递的参数为：');
+                console.log(param);
+            },
+            btnClick3: function (param, event) {
+                console.log('点击了按钮！传递的参数为：');
+                console.log(param);
+                console.log(event);
+            },
+
+            //阻止冒泡相关方法
+            btnclick: function () {
+                console.log('点击了div内按钮！');
+            },
+            divClick: function () {
+                console.log('点击了div！');
+            },
+            //阻止默认行为相关方法
+            preventClick: function () {
+                console.log('阻止浏览器默认提交行为！');
+            },
+            //监听某个键抬起事件相关方法
+            keyUp: function () {
+                console.log('键抬起！');
+            },
+            //使事件只能被执行一次相关方法
+            btnOnce: function () {
+                console.log('这个事件只能被执行一次！');
+            }
+
+        }
+    });
+</script>
+</body>
+
+</html>

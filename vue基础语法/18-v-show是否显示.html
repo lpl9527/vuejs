@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <!--与v-if类似，可以使用v-show控制内容是否显示
+        区别：v-if为false时，dom不再显示。而v-show的dom还仍在dom中显示，不过添加了属性display:none
+        选择：只做一次选择时，使用v-if。频繁对元素进行显示、隐藏切换时，使用v-show效率更高。-->
+
+    <h2 v-show="isShow" id="aaa">{{message}}</h2>
+    <h2 v-if="isShow" id="bbb">{{message}}</h2>
+
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '消息内容',
+            isShow: true
+        }
+    });
+</script>
+
+</body>
+</html>

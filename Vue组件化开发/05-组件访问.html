@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<div id="app">
+
+    <cpn ref="aaa"></cpn>     <!--不能使用单标签，否则下面的内容将被覆盖-->
+    <cpn ref="bbb"></cpn>
+
+    <h2>--------------------------------------------------</h2>
+    <div>
+        <button @click="showChild()">父组件按钮</button>
+    </div>
+
+</div>
+
+<template id="cpnTemplate">
+
+    <div>
+        <h2>我是子组件中的内容！</h2>
+        <button @click="showParent()">子组件按钮</button>
+    </div>
+
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: 'hello'
+        },
+        methods: {
+            showChild: function () {
+                //访问子组件中属性
+
+                //1.第一种方式：$children 通过数组下标获取
+                /*console.log(this.$children);    //这个获取的时子组件实例数组
+                for (let c of this.$children){
+                    //调用子组件中方法
+                    c.showMessage();
+                    //获取子组件的属性
+                    console.log(c.name);
+                }*/
+
+                //2.第二种方式：$refs 通过属性获取，常用方式。组件上没有ref属性就是一个空的组件实例对象
+                console.log(this.$refs);
+                //执行子组件实例方法
+                console.log(this.$refs.bbb.showMessage())
+                //获取子组件实例属性
+                console.log(this.$refs.bbb.name);
+
+            }
+        },
+        components: {
+            cpn: {
+                template: '#cpnTemplate',
+
+                methods: {
+                    showMessage: function () {
+                        console.log('showMessage方法被执行了！');
+                    },
+                    showParent: function () {
+                        //访问父组件信息 $parent
+                        console.log(this.$parent);
+                        //访问根组件$root
+                        console.log(this.$root);
+                        console.log(this.$root.message);
+
+                    }
+                },
+                data: function () {
+                     return {
+                         name: '子组件的name属性值'
+                     }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

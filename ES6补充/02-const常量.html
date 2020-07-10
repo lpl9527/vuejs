@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    //1.const常量一经定义就不能被修改，修改会报错
+    //2.const在定义时必须被初始化
+    const name = 'lpl';
+
+    //3.常量的含义是指向的对象不能被修改，但是可以修改对象中的属性
+    const obj = {
+        name: 'lpl',
+        age: 23,
+        address: '合肥'
+    }
+    console.log(obj);
+    //修改对象属性值
+    obj.name = '刘朋龙';
+    console.log(obj);
+
+</script>
+
+</body>
+</html>

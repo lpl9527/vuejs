@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<div id="app">
+    <!--创建了三个组件实例，并没有共享一个data数据。组件设计时每个组件实例就不能相互影响，每个组件实例都有自己独立的状态。
+        这里就印证了为什么data不能定义为一个对象，而是只能定义为一个函数，当每次创建组件示例时，data函数就会返回多个对象实例，对应不同
+        的data返回值，所以data数据不共享-->
+    <cpn></cpn>
+    <cpn></cpn>
+    <cpn></cpn>
+</div>
+
+<!--将模板从组件中抽离-->
+<!--第一种方式（基本不會使用）：-->
+<!--<script type="text/x-template" id="cpnTemplate">
+    <div>
+        <h2>我是内容标题</h2>
+        <p>我是内容，哈哈哈哈哈哈</p>
+        <p>我是内容，呵呵呵呵呵呵</p>
+    </div>
+</script>-->
+<!--第二种方式-->
+<!--这里将计数器抽离出一个组件-->
+<template id="cpnTemplate">
+    <div>
+        <h2>当前记数：{{counter}}</h2>
+        <button @click="increment()">+</button>
+        <button @click="decrement()">-</button>
+    </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+
+    //1.创建组件构造器对象
+    const componentConstructor = Vue.extend({
+        template: '#cpnTemplate',
+        data: function () {     //组件模板中的参数data属性不能定义为一个对象，必须是一个函数，且返回一个对象，对象内部保存着数据
+            return {
+                counter: 0
+            }
+        },
+        methods: {
+            increment: function () {
+                this.counter++;
+            },
+            decrement: function () {
+                this.counter--;
+            }
+        }
+    });
+
+    //Vue实例1
+    const app = new Vue({
+        el: '#app',
+        components: {   //注册局部组件，在某个Vue实例中注册的组件为局部组件
+            cpn: componentConstructor
+        }
+    });
+</script>
+</body>
+</html>

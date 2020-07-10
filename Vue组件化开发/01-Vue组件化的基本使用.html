@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<div id="app">
+
+    <!--3.使用注册的全局组件-->
+    <cpn></cpn>
+    <my-cpn></my-cpn>
+</div>
+
+<div id="app2">
+    <!--可以在app实例之外的其他实例app2下使用全局组件-->
+    <my-cpn></my-cpn>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+
+    //小语法补充： ES6可以使用反引号定义变量。 `abc`   特点：可以换行，不用使用+号连接。
+
+    //1.创建组件构造器对象
+    const componentConstructor = Vue.extend({
+        template: `<div>
+                    <h2>我是内容标题</h2>
+                    <p>我是内容，哈哈哈哈哈哈</p>
+                    </div>`
+    });
+    //2.注册组件，此为全局组件，可以在多个Vue的实例下使用
+    Vue.component('my-cpn', componentConstructor);
+
+    //Vue实例1
+    const app = new Vue({
+        el: '#app',
+        components: {   //在某个Vue实例中注册的组件为局部组件
+            //注册局部组件，cpn为局部组件的标签名
+            cpn: componentConstructor
+        }
+    });
+    //Vue实例2
+    const  app2 = new Vue({
+        el: '#app2'
+    })
+</script>
+</body>
+</html>

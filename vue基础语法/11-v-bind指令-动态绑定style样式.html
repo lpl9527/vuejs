@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="app">
+
+    <!--<h2 :style="{key(属性名): value(属性值)}">{{message}}</h2>-->
+    <h2 :style="{fontSize: '50px', color: color}">{{message}}</h2>    <!--属性值不加单引号时会被解析为变量，如果没有定义这个变量就会报错-->
+    <h2 :style="{fontSize: size}">{{message}}</h2>
+
+    <!--方式二：也可以通过方法返回对象的形式动态绑定样式属性-->
+
+</div>
+
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '消息',
+            size: '100px',
+            color: 'red'
+        }
+    });
+</script>
+</body>
+
+</html>

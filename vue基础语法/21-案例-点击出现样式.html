@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+
+    <style>
+        .active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    <!--实现点击那个电影哪个电影变红色-->
+    <ul>
+        <li v-for="(movie, index) in movies" :class="{active: currentIndex === index}" @click="liClick(index)">{{movie}}</li>
+    </ul>
+
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            movies: ['海王', '海贼王', '新三国', '水浒传'],
+            currentIndex: 0     //当前下标属性
+        },
+        methods: {
+            liClick: function (index) {
+                this.currentIndex = index;  //将当前点击的项的index赋值给属性currentIndex，然后在动态绑定属性中判断两者相等则添加样式
+            }
+        }
+
+    });
+</script>
+
+</body>
+</html>

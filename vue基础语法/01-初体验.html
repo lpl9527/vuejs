@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--引入VueJs-->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h1>提示信息：{{message}}</h1>
+    <h2>姓名：{{name}}</h2>
+</div>
+
+<script>
+    //编程范式：声明式编程，原始js编程范式：命令式编程
+    //let(变量)、const(常亮)
+    const app = new Vue({   //new一个Vue实例
+        el: '#app',     //挂载管理一个dom元素
+        data: {     //定义数据，用于渲染挂载元素
+            message: '你好，Vue！',
+            name: 'lpl'
+        }
+    })
+</script>
+
+</body>
+</html>

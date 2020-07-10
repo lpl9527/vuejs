@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    //使用setTimeout函数模拟嵌套回调，1秒请求后回调箭头函数，一个setTimeout函数可以理解为一个ajax请求
+    /*setTimeout(() => {
+        console.log('hello vue');
+        console.log('hello vue');
+        console.log('hello vue');
+
+        setTimeout(() => {
+            console.log('hello java');
+            console.log('hello java');
+            console.log('hello java');
+
+            setTimeout(() => {
+                console.log('hello linux');
+                console.log('hello linux');
+                console.log('hello linux');
+
+            }, 1500)
+        }, 1200)
+    }, 1000)*/
+
+    //上面的嵌套回调不易维护，代码结构不够清晰，使用Promise代替，链式处理
+    //Promise一般用于对异步操作进行封装，执行是异步的
+    //参数 -> 函数(resolve, reject)
+    new Promise((resolve, reject) => {
+        setTimeout(() => {         //第一次网络请求，将网络请求代码与逻辑代码相分离。
+            //成功时调用resolve，来到then逻辑
+            resolve('vue')      //'vue'为网络请求拿到的数据
+            //失败时调用reject，来到catch逻辑
+            //reject('第一次请求发生异常！')
+        }, 1000)
+    }).then((data1) => {     //第一次请求通过后的处理
+        //一系列操作，这里可以对请求到的数据data做一些列处理
+        console.log('hello ' + data1)
+        console.log('hello ' + data1)
+        console.log('hello ' + data1)
+
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {          //第二次网络请求
+                resolve(data1 + ' -> java')
+                //reject('第二次请求发生异常！')
+            }, 1200)
+        }).then((data2) => {     //第二次请求通过后的处理
+            //一系列操作
+            console.log('hello ' + data2)
+            console.log('hello ' + data2)
+            console.log('hello ' + data2)
+
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {          //第三次网络请求
+                    //resolve(data2 + ' -> linux')
+                    reject('第三次请求发生异常！')
+                }, 1500)
+            }).then((data3) => {     //第三次请求后的处理
+                //一系列操作
+                console.log('hello ' + data3)
+                console.log('hello ' + data3)
+            }).catch(err => {   //第三次请求异常执行的逻辑
+                console.log(err)
+            })
+        }).catch(err => {   //第二次请求异常执行的逻辑
+            console.log(err)
+        })
+
+    }).catch(err => {   //第一次请求异常执行的逻辑
+        console.log(err)
+    })
+
+    //对于网络请求的回调也可以写成这种格式
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('data')
+            reject('发生异常！')
+        }, 1000)
+    }).then(data => {   //这里将正常与异常逻辑全写在then的逻辑中
+        console.log(data)
+    }, err => {
+        console.log(err)
+    })
+
+    //对于一次多个网络请求的情况，可以使用all
+    Promise.all([
+        new Promise((resolve, reject) => {
+            //伪代码，发出网络请求
+            /*$.ajax({
+                url: '',
+                ...
+                success: function(data) {
+                    resolve(data)
+                }
+            })*/
+        }),
+        new Promise((resolve, reject) => {
+            //伪代码，发出网络请求
+            /*$.ajax({
+                url: '',
+                ...
+                success: function(data) {
+                    resolve(data)
+                }
+            })*/
+        })
+    ]).then(datas => {
+        console.log(datas[0]);    //这个获取的是第一个请求的数据
+        console.log(datas[1]);    //这个获取的是第二个请求的数据
+    })
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<div id="app">
+
+    <h2>--------------具名插槽--------------</h2>
+
+    <!--这些只会替换没有名字的插槽-->
+    <cpn><button>放置到组件插槽中的按钮</button></cpn>
+    <cpn></cpn>
+    <cpn>
+        <i>哒哒哒</i>
+        <p>呵呵呵</p>
+        <div>嘿嘿嘿</div>
+    </cpn>
+
+    <!--替换具名插槽内容-->
+    <cpn><span slot="right">替换了指定名称插槽的内容</span></cpn>
+
+</div>
+
+<template id="cpnTemplate">
+
+    <div>
+        <h2>我是子组件中的内容！</h2>
+
+        <slot name="left"><button>这是插槽中的默认按钮，外部没有指定内容时使用此默认值</button></slot>       <!--放置一个插槽，用于放置一些定制的内容-->
+        <slot name="center"><span>第二个插槽</span></slot>
+        <slot name="right"><span>第三个插槽</span></slot>
+    </div>
+
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: 'hello'
+        },
+        components: {
+            cpn: {
+                template: '#cpnTemplate'
+            }
+        }
+    });
+</script>
+</body>
+</html>

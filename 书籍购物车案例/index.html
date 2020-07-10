@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--引入样式-->
+    <link rel="stylesheet" href="style.css"/>
+
+</head>
+<body>
+
+<div id="app">
+
+    <div v-if="books.length">
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>书籍名称</th>
+                <th>出版日期</th>
+                <th>价格</th>
+                <th>购买数量</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(book, index) in books">
+                <!--这种遍历对象的方式也能进行展示，但是对某一项具体操作时就很不方便，所以不建议再次遍历对象展示-->
+                <!--<td v-for="item in book">{{item}}</td>-->
+                <td>{{book.id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.date}}</td>
+                <td>{{book.price | showPrice}}</td>
+                <td>
+                    <!--这里也可以不传下边index，传对象也可-->
+                    <button @click="decrement(index)" :disabled="book.count <= 1">-</button>    <!--最小值为1，禁用减按钮-->
+                    {{book.count}}
+                    <button @click="increment(index)" :disabled="book.count >= 10">+</button>    <!--限购，最大值为10，禁用按钮-->
+                </td>
+                <td>
+                    <button @click="removeBook(index)">移除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2>总价格：{{totalPrice | showPrice}}</h2>
+    </div>
+
+    <h2 v-else>购物车为空</h2>
+
+</div>
+
+</body>
+<!--在js文件之前引入Vue-->
+<script src="../js/vue.js"></script>
+<!--引入js-->
+<script src="main.js"></script>
+</html>

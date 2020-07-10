@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <!--v-once指令声明后变量在第一次初始化（渲染）后页面上的值就不会再被修改-->
+    <h2 v-once>{{message}}</h2>
+    <h2>{{message}}</h2>
+</div>
+
+<script>
+    const app = new Vue({
+       el: '#app',
+       data: {
+           message: '提示信息'
+       }
+    });
+</script>
+</body>
+</html>

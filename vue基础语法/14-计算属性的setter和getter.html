@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <!--通过computed计算属性结果，计算属性不像方法，它是有缓存的(只有在设置属性时缓存内容才会改变)，可以避免重复计算-->
+    <h2>{{fullName}}</h2>
+
+</div>
+
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'liu',
+            lastName: 'penglong'
+        },
+        computed: {
+            //计算属性的完整写法，简单写法就是之前以函数的形式写法，所以在使用计算属性时不需要加()
+            fullName: {
+                //一般是只设置计算属性的getter方法，不使用setter方法，此时计算属性就是一个只读属性
+                set: function (newValue) {
+                    console.log("设置的名称为：" + newValue);
+                    //将设置的值赋值给对应的变量
+                    let name = newValue.split(' ');
+                    this.firstName = name[0];
+                    this.lastName = name[1];
+                },
+                get: function () {
+                    return this.firstName + ' ' + this.lastName;
+                }
+            }
+        }
+
+    });
+</script>
+</body>
+
+</html>

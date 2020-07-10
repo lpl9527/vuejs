@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <!--一般复杂的逻辑不要放在dom中进行，可以放在计算属性中计算出结果再显示-->
+
+    <h2 v-if="score >= 90">分数：{{score}}，优秀！</h2>   <!--控制元素中内容是否显示-->
+    <h2 v-else-if="score >= 80">分数：{{score}}， 良好！</h2>
+    <h2 v-else-if="score >= 70">分数：{{score}}， 一般！</h2>
+    <h2 v-else-if="score >= 60">分数：{{score}}， 及格！</h2>
+    <h2 v-else>分数：{{score}}，未及格！</h2>
+
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            score: 97
+        }
+    });
+</script>
+
+</body>
+</html>

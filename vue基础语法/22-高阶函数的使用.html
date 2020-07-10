@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    const nums = [10, 20, 70, 100, 230,450, 40, 60];
+    console.log('原数组：' + nums);
+    //1.使用高阶函数filter取出数组中小于100的数
+    let resultNums = nums.filter(function (num) {    //参数为一个回调函数，遍历原数组每一项，当满足条件时返回true，就会将这一项放回新的数组中
+        let flag = num < 100;
+        return flag;
+    });     //注意：filter函数只会根据条件是否成立决定是否将原值放入数组并返回。
+    //结果： [10, 20, 70, 40, 60]
+    console.log('提取出小于100元素的新数组：' + resultNums);
+
+
+    //2.使用高阶函数map对上一步的数组每一项乘2操作
+    let resultNums2 = resultNums.map(function (num) {   //遍历每一项，进行逻辑操作后返回结果
+        return num * 2;
+    });      //注意：map函数是将计算之后的结果放入数组并返回，而不是返回原值。
+    //结果： [20, 40, 140, 80, 120]
+    console.log('将提取出小于100元素的新数组每一项乘2：' + resultNums2);
+
+
+    //3.使用高阶函数reduce对计算数组所有元素之和
+    let total = resultNums2.reduce(function (previousValue, num) {
+        return previousValue + num;
+    }, 0);
+    //对上面reduce执行说明：0为初始值，previousValue为上一次计算的值，num为数组中每一项的值，数组中有多少个元素就会遍历几次。返回值是每一次逻辑处理的结果，同时作为下一次遍历的previousValue的值。
+    //第一次：previousValue = 0, num = 20
+    //第二次：previousValue = 20, num = 40
+    //第三次：previousValue = 60, num = 140
+    //第四次：previousValue = 200, num = 80
+    //第五次：previousValue = 280, num = 120
+    //结果： 400
+    console.log('最后数组中所有项之和为：' + total);
+
+
+    //综上，可以将上面三个函数以链式形式写成一行进行计算
+    let totalResult = nums.filter(function (num) {
+        return num < 100;
+    }).map(function (num) {
+        return num * 2;
+    }).reduce(function (previousValue, num) {
+        return previousValue + num;
+    }, 0);
+    console.log('链式写法，同样的计算结果：' + totalResult);
+
+    //同样可以以箭头函数的写法计算（类似于Java的lambda表达式）
+    let totalResult2 = nums.filter(num => num < 100).map(num => num* 2).reduce((previousValue, num) => previousValue + num);
+    console.log('箭头函数链式写法，同样的计算结果：' + totalResult2);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <h2>------------结合text、textarea使用-----------</h2>
+
+    <!--v-model实现input输入框与数据的双向绑定(也可用于textarea) 输入框数据改变时data数据也会发生相应改变，数据data改变时输入框的值也会响应式改变-->
+    <input type="text" v-model.lazy.trim="username">     <!--这里使用了.lazy修饰符，只有才敲回车时才会进行绑定，以减少性能消耗。相应的.trim修饰符可以去除左右两边的空格。-->
+    <!--也可以通过绑定事件的方式监听改变data中属性值-->
+    <textarea :value="username" @input="inputChange($event)"></textarea>
+    <h2>双向绑定data中相应数据随之改变： {{username}}</h2>
+
+    <h2>------------结合radio使用-----------</h2>
+
+    <!--使用v-model双向绑定也可以实现不用相同name属性时radio选择互斥-->
+    <label for="male">
+        <input type="radio" name="sex" value="男" id="male" v-model="sex">男
+    </label>
+    <label for="female">
+        <input type="radio" name="sex" value="女" id="female" v-model="sex">女
+    </label>
+    <h2>选择的性别是：{{sex}}</h2>
+
+    <h2>------------结合checkbox使用-----------</h2>
+    <!--checkbox单选框-->
+    <label for="protocol">
+        <input type="checkbox" id="protocol" v-model="isAgree">同意协议
+    </label>
+    <h2>你选择的是：{{isAgree}}</h2>
+    <button :disabled="!isAgree">下一步</button>
+    <br>
+    <br>
+    <!--checkbox多选框-->
+    <input type="checkbox" value="篮球" v-model="hobbies">篮球
+    <input type="checkbox" value="足球" v-model="hobbies">足球
+    <input type="checkbox" value="乒乓球" v-model="hobbies">乒乓球
+    <input type="checkbox" value="羽毛球" v-model="hobbies">羽毛球
+    <h2>您的爱好是：{{hobbies}}</h2>
+
+    <h2>------------结合select使用-----------</h2>
+    <select name="fruit" v-model="fruit" multiple>  <!--加上multiple属性可以选择多个值-->
+        <option value="苹果">苹果</option>
+        <option value="香蕉">香蕉</option>
+        <option value="榴莲">榴莲</option>
+        <option value="葡萄">葡萄</option>
+    </select>
+    <h2>你选择的水果是：{{fruit}}</h2>
+
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            username: 'lpl',
+            sex: '男',    //设置radio默认值
+            isAgree: false,
+            hobbies: [],
+            fruit: '香蕉'
+        },
+        methods: {
+            inputChange: function (event) {
+                this.username = event.target.value;     //获取输入框中最新的值
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<!--mustache表示胡须的意思，即大括号读值语法-->
+<div id="app">
+    <h2>{{message}}</h2>
+    <!--变量表达式-->
+    <h2>{{message + ':' + name}}</h2>
+    <h2>{{counter * 2}}</h2>
+</div>
+
+<script>
+    const app = new Vue({
+       el: '#app',
+       data: {
+           message: '提示信息',
+           name: 'lpl',
+           counter: 100
+       }
+    });
+</script>
+</body>
+</html>

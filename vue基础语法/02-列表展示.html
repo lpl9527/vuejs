@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!--引入Vue-->
+<script src="../js/vue.js"></script>
+<body>
+
+<div id="app">
+
+    <!--以无序列表的形式展示Vue数组中元素-->
+    <ul>
+        <li v-for="movie in movies">{{movie}}</li>      <!--v-for指令用于遍历-->
+    </ul>
+
+</div>
+
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '你好！',
+            movies: ['盗梦空间', '千与千寻', '机器人总动员']
+        }
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    <h2>{{message}}</h2>
+
+    <!--v-cloak指令，斗篷，在vue解析之前，有v-cloak属性，在Vue解析之后，就会去掉该属性
+        有时需要在js未加载成功时或加载延时较高时，不希望看到页面中的原始表达式-->
+    <h2 v-cloak>{{message}}</h2>
+</div>
+
+<script>
+    setTimeout(function () {
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好'
+            }
+        });
+    }, 2000);   //延时2秒加载渲染dom
+</script>
+</body>
+</html>

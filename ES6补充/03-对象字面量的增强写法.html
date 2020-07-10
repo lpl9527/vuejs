@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    //const obj = new Object();
+
+    //对象字面量写法
+    /*const obj = {
+        name: 'lpl',
+        age: 23,
+        run: function () {
+            console.log('在奔跑！');
+        },
+        eat: function () {
+            console.log('在吃东西！');
+        }
+    }*/
+
+    //字面量的属性和函数增强写法，默认会将变量名作为对象属性名，变量值作为对象属性值
+    const name = 'lpl';
+    const age = 23;
+
+    const obj = {
+        name,
+        age,
+        run(){
+            console.log('在奔跑！');
+        },
+        eat(){
+            console.log('在吃东西！');
+        }
+    }
+    console.log(obj);
+
+</script>
+
+</body>
+</html>

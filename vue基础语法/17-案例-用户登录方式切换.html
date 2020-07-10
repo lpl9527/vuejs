@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <!--注意：这里会存在一个组件复用问题，vue出于性能考虑，在渲染页面切换组件时复用了input，同时也复用了组件中上一次输入的值，导致上一次输入
+        的值在切换组件后还在。解决方法：为组件增加属性key标识组件唯一-->
+    <span v-if="isUserLogin">
+        <label for="username">账号：</label>
+        <input type="text" id="username" autocomplete="false" placeholder="请输入用户名" key="username">
+    </span>
+    <span v-else="isUserLogin">
+        <label for="email">邮箱：</label>
+        <input type="text" id="email" autocomplete="false" placeholder="请输入邮箱" key="email">
+    </span>
+    <button @click="isUserLogin=!isUserLogin">切换登录方式</button>
+
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            isUserLogin: true
+        }
+    });
+</script>
+
+</body>
+</html>

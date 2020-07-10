@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="app">
+    <!--为属性动态绑定值-->
+    <img v-bind:src="imgurl" v-bind:alt="imgurl">
+    <a :href="href">百度一下</a>    <!--语法糖（简写）的写法-->
+
+    <!--方式一：对象绑定语法-->
+    <h2 :class="styleClass" class="otherClass">{{message}}</h2>    <!--语法糖（简写）的写法，不会覆盖原始的class属性值，会进行合并-->
+    <h2 :class="{active: false, active2: false}">{{message}}</h2>    <!--当为true时对象中的class就会渲染进class中-->
+    <h2 :class="{active: isActive, active2: isActive2}">{{message}}</h2>    <!--可以实现根据Vue数据中的属性值动态加载class属性-->
+
+    <!--方式二：通过方法返回class属性-->
+    <h2 :class="getClass()">{{message}}</h2>    <!--可以实现根据Vue数据中的属性值动态加载class属性-->
+
+    <button @click="colorChange()">点击变色</button>
+
+</div>
+
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '消息',
+            imgurl: 'https://cn.vuejs.org/images/logo.png',
+            href: 'http://www.baidu.com',
+            styleClass: 'active',
+            isActive: true,
+            isActive2: true
+
+        },
+        methods: {
+            //通过改变class属性来改变颜色
+            colorChange: function () {
+                //直接当前颜色取反
+                this.isActive = !this.isActive;
+            },
+            //返回class对象
+            getClass: function () {
+                return {active: this.isActive, active2: this.isActive2}
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

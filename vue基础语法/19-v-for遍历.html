@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <h2>---------------------遍历数组-----------------------</h2>
+    <!--1.遍历数组，不使用下标遍历-->
+    <ul>
+        <li v-for="name in names">{{name}}</li>
+    </ul>
+    <!--遍历数组，使用下标值-->
+    <ul>
+        <li v-for="(name, index) in names">{{index + 1}}.{{name}}</li>
+    </ul>
+
+    <h2>---------------------遍历对象-----------------------</h2>
+
+    <!--2.遍历对象-->
+    <ul>
+        <li v-for="item in info">{{item}}</li>
+    </ul>
+    <!--注意：value和key顺序不能颠倒-->
+    <ul>
+        <li v-for="(value, key) in info">{{key}}：{{value}}</li>
+    </ul>
+
+    <ul>
+        <li v-for="(value, key, index) in info">{{index + 1}}.{{key}}：{{value}}</li>
+    </ul>
+
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            names: ['lpl', 'nacos', 'vue'],     //数组属性
+            info: {         //对象属性
+                name: 'lpl',
+                age: 23,
+                address: '安徽合肥'
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

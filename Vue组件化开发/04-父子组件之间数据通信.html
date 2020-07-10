@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<!--父组件模板-->
+<div id="app">
+    <!--这里通过监听子组件发射出的事件来进行数据的传递，通过方法绑定来传递参数，注意：这里cpnClick不能写括号-->
+    <cpn :cname="name" v-bind:cm="message" v-on:c-click="cpnClick"></cpn>   <!--通过将父组件中数据data和子组件中属性prop绑定的方式进行数据通信-->
+</div>
+
+<!--子组件模板-->
+<template id="cpnTemplate">
+    <div>
+        <h2>-------父组件向子组件传递数据--------</h2>
+        <h2>{{cm}}</h2>    <!--子组件不能直接引用父组件数据-->
+        <ul>
+            <li v-for="cn in cname">{{cn}}</li>
+        </ul>
+        <h2>-------子组件向父组件传递数据--------</h2>
+        <button @click="itemClick(category)" v-for="category in categories">{{category.name}}</button>
+    </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+
+    //1.创建组件构造器对象
+    const componentConstructor = {
+        template: '#cpnTemplate',
+        //props: ['cm', 'cname']     //子组件中通过props属性与父组件中data相绑定
+        data: function(){
+          return {      //子组件中数据
+              categories: [
+                  {id: 'aaa', name: '手机'},
+                  {id: 'bbb', name: '电脑'},
+                  {id: 'ccc', name: '鼠标'}
+              ]
+          }
+        },
+        props: {
+            cm: {
+                type: String,    //类型限制
+                default: 'abc',  //未绑定数据时显示默认值
+                required: true
+            },
+            cname: {
+                type: Array,
+                default: []
+            }
+        },
+        methods: {
+            itemClick: function (category) {
+                this.$emit('c-click', category);   //发射出一个自定义事件供父组件接收
+            }
+        }
+    };
+
+    //Vue实例1
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '父组件中的数据',
+            name: ['lpl', 'vae']
+        },
+        components: {
+            cpn: componentConstructor   //Vue父组件中注册子组件
+        },
+        methods: {
+            cpnClick: function (category) {
+                console.log(category)
+            }
+        }
+    });
+</script>
+</body>
+</html>

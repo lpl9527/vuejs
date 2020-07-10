@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<div id="app">
+
+    <!--编译作用域，父组件模板的所有东西都会在父级作用域内编译；子组件模板的所有东西都会在子级作用域内编译-->
+    <cpn v-show="isShow"></cpn>
+    <cpn v-show="isShow">
+        <template v-slot="slot1">
+            <span v-for="language in slot1.cpndata">{{language}}--</span>
+        </template></cpn>
+    <cpn v-show="isShow">
+        <template v-slot="slot2">
+            <span v-for="language in slot2.cpndata">{{language}}**</span>
+        </template>
+    </cpn>
+
+</div>
+
+<template id="cpnTemplate">
+
+    <div>
+        <h2>我是子组件中的内容！</h2>
+        <button v-show="isShow">子组件中内容</button>
+        <slot :mydata="languages">        <!--使用某一自定义属性绑定子组件中数据，这样就可以在父组件中使用子组件中数据-->
+            <ul>
+                <li v-for="language in languages">{{language}}</li>
+            </ul>
+        </slot>
+
+    </div>
+
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            isShow: true
+        },
+        components: {
+            cpn: {
+                template: '#cpnTemplate',
+                data: function () {
+                    return {
+                        isShow: false,
+                        languages: ['js', 'java', 'C++', 'Python']
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

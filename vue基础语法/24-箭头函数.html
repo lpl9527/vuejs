@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    //1.定义函数
+    const functionA = function () {
+
+    }
+
+    //2.对象字面量中定义
+    const obj = {
+        aaa: function(){
+
+        },
+        bbb(){
+
+        }
+    }
+
+    //3.箭头函数
+    const functionB = () => {
+
+    }
+    //带参箭头函数，两个参数
+    const sum = (sum1, sum2) => {
+        return sum1 + sum2
+    }
+    //带参箭头函数，一个参数
+    const  power = num => {
+        return num * num
+    }
+    //函数中有多行代码时
+    const functionC = () => {
+        console.log('hello world');
+        console.log('hello vue')
+    }
+    //函数只有一行代码时
+    const mul = (num1, num2) => num1 * num2
+    console.log(mul(10, 20))
+
+
+    //箭头函数中this指向问题，this逐层向上查找this，当找到this时就是此this指向的对象
+    const obj2 = {
+        aaa(){
+            setTimeout(function(){
+                console.log(this)       //this指向window
+            })
+            console.log(this)           //this指向obj2
+            setTimeout(() => {
+                console.log(this)       //this指向obj2
+            })
+        }
+
+    }
+    obj2.aaa();
+
+</script>
+
+</body>
+</html>
