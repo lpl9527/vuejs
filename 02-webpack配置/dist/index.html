@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <span>{{message}}</span>
+</div>
+<!--安装Vue：
+    使用命令安装开发时依赖 npm install --save vue。
+-->
+<!--安装插件将入口index.html文件打包到发布目录：
+    使用命令安装开发时依赖 npm install --save-dev html-webpack-plugin@3.2.0
+-->
+<!--安装插件压缩打包文件：
+    使用命令安装开发时依赖 npm install --save-dev uglifyjs-webpack-plugin@1.1.1
+-->
+<!--由于我们每次修改了代码都要重新打包比较麻烦，可以搭建一个本地服务在内存中存储代码进行测试(相当于热部署)，安装：
+    使用命令： npm install --save-dev webpack-dev-server@2.9.3
+-->
+
+<!--由于部分配置用于生产环境，部分用于开发环境，因此要将webpack配置文件相分离，需要安装：
+    使用命令： npm install --save-dev webpack-merge
+-->
+
+
+<script type="text/javascript" src="bundle.js"></script></body>
+</html>
